@@ -5,11 +5,11 @@ let
   inherit (config.hardware) pulseaudio;
 in
 {
-  imports = [ ../qutebrowser ];
+  #imports = [ ../qutebrowser ];
 
   sound.enable = true;
 
-  programs.waybar.enable = true;
+  #programs.waybar.enable = true;
 
   programs.sway = {
     enable = true;
@@ -79,7 +79,7 @@ in
     "sway/config".text =
       let
         volnoti = import ../misc/volnoti.nix { inherit pkgs; };
-        background = "/home/tgunnoe/src/nixflk/profiles/graphical/sway/polyscape-background-15.png";
+        background = "/home/tgunnoe/src/nix-machines/profiles/graphical/sway/polyscape-background-15.png";
       in
       ''
         set $volume ${volnoti}
@@ -91,7 +91,17 @@ in
         ${readFile ./config}
       '';
 
-    "xdg/waybar".source = ./waybar;
+    "xdg/waybar/config".text = builtins.toJSON (
+      import ./waybar/config.nix {
+        #inherit (config.networking) hostName;
+        inherit pkgs;
+        inherit lib;
+      }
+    );
+    "xdg/waybar/style.css" = {
+        text = (builtins.readFile ./waybar/style.css);
+      };
+
   };
 
   environment.systemPackages = with pkgs; [

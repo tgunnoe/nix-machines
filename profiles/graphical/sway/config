@@ -6,13 +6,14 @@
 set $mod Mod4
 set $term kitty
 
-bar {
-    swaybar_command waybar
-    status_command i3status
-    position top
-    height 40
-    font xft:Ubuntu Condensed 14
-}
+#bar {
+#    swaybar_command waybar
+#     status_command i3status
+#     position top
+#     height 40
+#     font xft:Ubuntu Condensed 14
+#}
+exec_always 'pkill waybar; waybar -c /etc/xdg/waybar/config -s /etc/xdg/waybar/style.css'
 set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
 ### Outputs #############################################################
 
@@ -451,3 +452,5 @@ mode "$mode_gaps_outer" {
 # Extra config:
 #
 #@extraConfig@
+
+exec "systemctl --user import-environment; systemctl --user start sway-session.target"

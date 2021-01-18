@@ -2,13 +2,13 @@
     border: none;
     border-radius: 0;
     font-family: Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 1em;
     min-height: 0;
 }
 
 window#waybar {
-    background-color: rgba(43, 48, 59, 0.5);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    background-color: rgba(43, 48, 59, 0);
+    border-bottom: 3px solid rgba(100, 114, 125, 0);
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
@@ -39,31 +39,35 @@ window#waybar.chromium {
 #workspaces button {
     padding: 0 5px;
     background-color: transparent;
-    color: #ffffff;
-    border-bottom: 3px solid transparent;
+    color: #444444;
+    border-bottom: 2px solid transparent;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover {
     background: rgba(0, 0, 0, 0.2);
     box-shadow: inherit;
-    border-bottom: 3px solid #ffffff;
 }
 
 #workspaces button.focused {
-    background-color: #64727D;
-    border-bottom: 3px solid #ffffff;
+    color: #111111;
+    border-bottom: 2px solid #111111;
 }
-
+#custom-separator {
+    font-weight: bold;
+    margin: 0 5px;
+}
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    color: #eb4d4b;
+    font-weight: bold;
 }
-
 #mode {
     background-color: #64727D;
-    border-bottom: 3px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
 }
-
+#network button {
+    color: #000000;
+}
 #clock,
 #battery,
 #cpu,
@@ -77,8 +81,91 @@ window#waybar.chromium {
 #mode,
 #idle_inhibitor {
     padding: 0 10px;
-    margin: 0 4px;
     color: #ffffff;
+}
+#cpu,
+#temperature {
+    background-color: #111111;
+}
+#custom-quit {
+    padding: 5px;
+    font-size: 1.3em;
+}
+#pulseaudio {
+    background-color: #91ddff;
+    color: #111111;
+}
+#pulseaudio.muted {
+    /*    background-color: #90b1b1;*/
+    background-color: #91ddff;
+    color: #2a5c45;
+}
+#memory {
+    background-color: #91ddff;
+    color: #111111;
+}
+#network {
+    background-color: #111111;
+    color: #ffffff;
+}
+#battery,
+#custom-distro-icon,
+#custom-linux
+{
+    background-color: #ffb973;
+    color: #111;
+    padding-right: 1em;
+}
+#custom-linux,
+#custom-distro-icon {
+    font-weight: bold;
+}
+#custom-distro-icon {
+    padding: 0 0.5em;
+    font-size: 1.75em;
+}
+#clock{
+    padding: 0 10px;
+    margin:0;
+    background-color: transparent;
+    color: #ffffff;
+}
+#workspaces{
+    padding: 0 1em;
+    background-color: #91ddff;
+    color: #000000;
+}
+#custom-dulP,
+#custom-ddrP {
+    color: #ffb973;
+}
+#custom-ddrT,
+#custom-dulT,
+#custom-durT,
+#custom-ddlT {
+    color: #91ddff;
+}
+#custom-dulS,
+#custom-durS,
+#custom-ddlS,
+#custom-ddrS {
+    color: #111111;
+}
+#custom-dulP,
+#custom-dulS,
+#custom-ddrT,
+#custom-dulT,
+#custom-durT,
+#custom-ddlT,
+#custom-ddrS,
+#custom-ddlS,
+#custom-durS,
+#custom-ddrS,
+#custom-ddrP
+{
+    margin:0;
+    padding:0;
+    font-size:1.75em;
 }
 
 #battery.charging {
@@ -111,12 +198,6 @@ label:focus {
     background-color: #f53c3c;
 }
 
-#pulseaudio.muted {
-    background-color: #90b1b1;
-    color: #2a5c45;
-}
-
 #temperature.critical {
     background-color: #eb4d4b;
 }
-

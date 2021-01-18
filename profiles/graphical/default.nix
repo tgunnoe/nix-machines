@@ -54,6 +54,7 @@ in
       adapta-gtk-theme
       cursor
       dzen2
+      electrum
       feh
       ffmpeg-full
       gnome3.adwaita-icon-theme
@@ -71,6 +72,7 @@ in
       qt5.qtgraphicaleffects
       sddm-chili
       stdmanpages
+      transmission-gtk
       xsel
       zathura
       pcmanfm
