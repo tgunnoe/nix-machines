@@ -32,7 +32,7 @@ in
         slurp    # screen are selection tool
         mako     # notification daemon
         kanshi   # dynamic display configuration helper
-        #imv      # image viewer
+        imv      # image viewer
         wf-recorder # screen recorder
         wl-clipboard  # wayland vers of xclip
 

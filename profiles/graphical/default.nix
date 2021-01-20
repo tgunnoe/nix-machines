@@ -2,7 +2,7 @@
 let inherit (builtins) readFile;
 in
 {
-  imports = [ ./sway ../develop /*./xmonad*/ ../network ./im ];
+  imports = [ ./sway ../develop /*./xmonad*/ ./im ];
 
   hardware.opengl.enable = true;
   hardware.opengl.driSupport = true;
@@ -58,7 +58,7 @@ in
       feh
       ffmpeg-full
       gnome3.adwaita-icon-theme
-      gnome3.networkmanagerapplet
+      #gnome3.networkmanagerapplet
       gnome-themes-extra
       imagemagick
       imlib2
@@ -76,6 +76,7 @@ in
       xsel
       zathura
       pcmanfm
+      vlc
     ];
   };
 
