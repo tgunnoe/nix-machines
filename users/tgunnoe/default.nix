@@ -12,7 +12,7 @@ in
     ../../profiles/graphical
     ../../profiles/ssh
     ../../profiles/graphical/games
-#    ../../profiles/network
+    ../../profiles/network
     ./vpn.nix
   ];
 
