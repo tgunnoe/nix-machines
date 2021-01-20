@@ -1,19 +1,23 @@
 { pkgs, ... }: {
   imports = [ ./udev.nix ];
   environment.systemPackages = with pkgs; [
-    retroarchBare
+    #retroarchBare
+    lzwolf
     steam-run
-    pcsx2
-    qjoypad
+    #pcsx2
+    #qjoypad
+    protontricks
+    lutris
+    steam
   ];
 
-  services.wii-u-gc-adapter.enable = true;
+  #services.wii-u-gc-adapter.enable = true;
 
   # fps games on laptop need this
-  services.xserver.libinput.disableWhileTyping = false;
+  #services.xserver.libinput.disableWhileTyping = false;
 
   # Launch steam from display managers
-  services.xserver.windowManager.steam = { enable = true; };
+  #services.xserver.windowManager.steam = { enable = true; };
 
   # 32-bit support needed for steam
   hardware.opengl.driSupport32Bit = true;

@@ -11,6 +11,8 @@ in
     ../../profiles/develop /*./mail.nix*/
     ../../profiles/graphical
     ../../profiles/ssh
+    ../../profiles/graphical/games
+#    ../../profiles/network
     ./vpn.nix
   ];
 
