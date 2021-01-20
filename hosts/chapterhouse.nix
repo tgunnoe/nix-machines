@@ -70,17 +70,17 @@
     firewall.allowedTCPPorts = [ 8000 ];
     enableIPv6 = false;
     useDHCP = false;
-
     interfaces = {
       enp37s0 = {
-        ipv4 = {
-          addresses = [
-            {
-              address = "192.168.0.5";
-              prefixLength = 25;
-            }
-          ];
-        };
+        useDHCP = true;
+        # ipv4 = {
+        #   addresses = [
+        #     {
+        #       address = "192.168.0.5";
+        #       prefixLength = 25;
+        #     }
+        #   ];
+        # };
       };
     };
   };
