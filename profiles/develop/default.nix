@@ -1,14 +1,14 @@
 { pkgs, ... }: {
   imports = [ ./zsh ./tmux ];
 
-  environment.shellAliases = { v = "$EDITOR"; pass = "gopass"; };
+  environment.shellAliases = { emacs = "$EDITOR"; pass = "gopass"; };
 
   environment.sessionVariables = {
     PAGER = "less";
     LESS = "-iFJMRWX -z-4 -x4";
     LESSOPEN = "|${pkgs.lesspipe}/bin/lesspipe.sh %s";
-    EDITOR = "k";
-    VISUAL = "k";
+    EDITOR = "emacs";
+    VISUAL = "emacs";
   };
 
   environment.systemPackages = with pkgs; [

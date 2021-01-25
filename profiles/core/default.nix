@@ -59,7 +59,7 @@ in
         # grep
         grep = "rg";
         gi = "grep -i";
-
+        emacs = "emacsclient -nw";
         # internet ip
         myip = "dig +short myip.opendns.com @208.67.222.222 2>&1";
 
