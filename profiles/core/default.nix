@@ -29,6 +29,7 @@ in
       nix-index
       moreutils
       nmap
+      pwgen
       ripgrep
       sshfs
       utillinux

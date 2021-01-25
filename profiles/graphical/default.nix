@@ -54,12 +54,15 @@ in
       adapta-gtk-theme
       cursor
       dzen2
+      chromium
       electrum
       feh
       ffmpeg-full
+      gtk3
       gnome3.adwaita-icon-theme
       #gnome3.networkmanagerapplet
       gnome-themes-extra
+      gimp
       imagemagick
       imlib2
       librsvg
