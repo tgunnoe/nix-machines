@@ -8,9 +8,14 @@
     #qjoypad
     protontricks
     lutris
-    steam
+    wineWowPackages.stable
   ];
-
+  nixpkgs.config.packageOverrides = pkgs: {
+    steam = pkgs.steam.override {
+      nativeOnly = true;
+    };
+  };
+  programs.steam.enable = true;
   #services.wii-u-gc-adapter.enable = true;
 
   # fps games on laptop need this

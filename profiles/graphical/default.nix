@@ -59,6 +59,7 @@ in
       feh
       ffmpeg-full
       gtk3
+      glxinfo
       gnome3.adwaita-icon-theme
       #gnome3.networkmanagerapplet
       gnome-themes-extra

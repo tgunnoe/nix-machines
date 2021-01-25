@@ -19,6 +19,7 @@ in
       direnv
       dnsutils
       dosfstools
+      encfs
       fd
       git
       gotop
