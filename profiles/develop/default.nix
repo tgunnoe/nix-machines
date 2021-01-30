@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   imports = [ ./zsh ./tmux ];
 
-  environment.shellAliases = { emacs = "$EDITOR"; pass = "gopass"; };
+  # environment.shellAliases = { emacs = "$EDITOR"; pass = "gopass"; };
 
   environment.sessionVariables = {
     PAGER = "less";
@@ -19,6 +19,7 @@
     less
     ncdu
     gopass
+    taskwarrior
     tig
     tokei
     wget

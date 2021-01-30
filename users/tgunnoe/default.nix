@@ -139,6 +139,6 @@ in
     isNormalUser = true;
     shell = pkgs.zsh;
     hashedPassword = fileContents ../../secrets/tgunnoe;
-    extraGroups = [ "wheel" "input" "networkmanager" "libvirtd" "video" ];
+    extraGroups = [ "wheel" "input" "networkmanager" "libvirtd" "video" "taskd"];
   };
 }
