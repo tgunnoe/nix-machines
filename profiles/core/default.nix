@@ -33,6 +33,7 @@ in
       pwgen
       ripgrep
       sshfs
+      toxic
       utillinux
       whois
     ];
