@@ -8,6 +8,7 @@
     #qjoypad
     protontricks
     lutris
+    winetricks
     wineWowPackages.stable
   ];
   nixpkgs.config.packageOverrides = pkgs: {
