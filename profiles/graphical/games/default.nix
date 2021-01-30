@@ -7,9 +7,10 @@
     #pcsx2
     #qjoypad
     protontricks
+    springLobby
     lutris
     winetricks
-    wineWowPackages.stable
+    wineWowPackages.full
   ];
   nixpkgs.config.packageOverrides = pkgs: {
     steam = pkgs.steam.override {

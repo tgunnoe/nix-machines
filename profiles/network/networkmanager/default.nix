@@ -5,7 +5,7 @@
     dns = lib.mkForce "none";
     extraConfig = ''
       [main]
-      systemd-resolved=false
+      systemd-resolved=true
     '';
   };
 

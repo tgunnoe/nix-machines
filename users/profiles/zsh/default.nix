@@ -5,7 +5,9 @@
     enableAutosuggestions = true;
     enableCompletion = true;
     defaultKeymap = "emacs";
-    initExtra = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+    initExtra = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme\n
+      POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+    ";
     sessionVariables = { RPROMPT = ""; };
 
     shellAliases = {
