@@ -7,7 +7,7 @@
     #pcsx2
     #qjoypad
     protontricks
-#    springLobby
+    # springLobby
     lutris
     winetricks
     wineWowPackages.full

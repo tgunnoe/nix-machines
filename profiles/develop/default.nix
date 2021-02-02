@@ -7,8 +7,8 @@
     PAGER = "less";
     LESS = "-iFJMRWX -z-4 -x4";
     LESSOPEN = "|${pkgs.lesspipe}/bin/lesspipe.sh %s";
-    EDITOR = "emacs";
-    VISUAL = "emacs";
+    EDITOR = "emacsclient -nw";
+    VISUAL = "emacsclient -nw";
   };
 
   environment.systemPackages = with pkgs; [

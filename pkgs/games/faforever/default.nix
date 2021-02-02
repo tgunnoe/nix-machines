@@ -1,7 +1,7 @@
-{ stdenv, fetchFromGitHub, fetchurl, makeWrapper, jdk11 }:
+{ stdenv, fetchFromGitHub, fetchurl, makeWrapper, jdk11, jre }:
 
 stdenv.mkDerivation rec {
-  pname = "faforever-downlord-client";
+  pname = "faforever";
 
   version = "1.4.0";
 
@@ -13,15 +13,18 @@ stdenv.mkDerivation rec {
   # };
   src = fetchurl {
     url = "https://github.com/FAForever/downlords-faf-client/releases/download/v1.4.0/dfc_unix_1_4_0.tar.gz";
-    sha256 = "1z1qcq65bqnjzklgsykqlhbkzvsn9ic2ifqgyh2p46zhxddrdar1";
+    sha256 = "fdb9dd363f86c6f5f5d1108a35b6e3d127bf9f1603b61cfe6564fdf41a1273d8";
   };
 
   buildInputs = [ jdk11 makeWrapper ];
 
   installPhase = ''
+    export INSTALL4J_JAVA_HOME_OVERRIDE=${jdk11.home}
+    export INSTALL4J_JAVA_HOME=${jre.home}
     mkdir -p $out/bin
     cp -a . $out
     ln -sf $out/downlords-faf-client $out/bin/faforever
+
     wrapProgram $out/bin/faforever --set INSTALL4J_JAVA_HOME ${jdk11.home}
 
   '';

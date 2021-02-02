@@ -20,6 +20,7 @@ in
       dnsutils
       dosfstools
       encfs
+      freetype
       fd
       git
       gotop
@@ -27,6 +28,7 @@ in
       iputils
       jq
       manix
+      ncurses
       nix-index
       moreutils
       nmap

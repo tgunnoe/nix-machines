@@ -588,8 +588,9 @@
           config = ''
         (global-hungry-delete-mode t)
       '';
-
-
+        };
+        matrix-client = {
+          enable = true;
         };
         nyan-mode = {
           enable = true;
