@@ -19,6 +19,7 @@
     less
     ncdu
     gopass
+    rubber
     taskwarrior
     tig
     tokei

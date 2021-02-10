@@ -13,6 +13,7 @@
       devshell.url = "github:numtide/devshell";
       nixos-hardware.url = "github:nixos/nixos-hardware";
       ci-agent.url = "github:hercules-ci/hercules-ci-agent";
+      # nixus = { url = "github:infinisil/nixus"; flake = false; };
     };
 
   outputs =

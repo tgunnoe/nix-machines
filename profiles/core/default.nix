@@ -29,9 +29,11 @@ in
       jq
       manix
       ncurses
+      neofetch
       nix-index
       moreutils
       nmap
+      openssl
       pwgen
       ripgrep
       sshfs
@@ -159,6 +161,8 @@ in
   };
 
   services.earlyoom.enable = true;
+
+  services.trezord.enable = true;
 
   users.mutableUsers = false;
 
