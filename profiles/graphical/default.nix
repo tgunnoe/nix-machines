@@ -69,6 +69,7 @@ in
       librsvg
       libsForQt5.qtstyleplugins
       manpages
+      mupdf
       nomacs
       papirus-icon-theme
       pulsemixer
