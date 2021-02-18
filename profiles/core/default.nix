@@ -15,6 +15,7 @@ in
       binutils
       bpytop
       coreutils
+      cmatrix
       curl
       direnv
       dnsutils

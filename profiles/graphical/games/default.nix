@@ -2,6 +2,7 @@
   imports = [ ./udev.nix ];
   environment.systemPackages = with pkgs; [
     #retroarchBare
+    gzdoom
     lzwolf
     steam-run
     #pcsx2
