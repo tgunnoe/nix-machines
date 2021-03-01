@@ -4,6 +4,7 @@ final: prev: {
   dejavu_nerdfont = prev.callPackage ./data/fonts/dejavu-nerdfont { };
   faforever = prev.callPackage ./games/faforever { };
   lzwolf = prev.callPackage ./games/lzwolf { };
+  nixway-app = prev.callPackage ./applications/nixway-app { };
   purs = prev.callPackage ./shells/zsh/purs { };
   pure = prev.callPackage ./shells/zsh/pure { };
   wii-u-gc-adapter = prev.callPackage ./misc/drivers/wii-u-gc-adapter { };
