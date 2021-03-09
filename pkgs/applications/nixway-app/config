@@ -1,0 +1,4 @@
+    set $mod Mod1
+    bindsym $mod+space exec @term@
+    output * bg @background@ fill
+    bindsym $mod+Shift+apostrophe kill

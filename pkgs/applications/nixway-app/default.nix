@@ -1,20 +1,24 @@
-{ pkgs, stdenv, sway }:
+{ pkgs, stdenv }:
 
 let
-  config = ''
-    set $mod Mod4
-    bindsym $mod+space exec termite
-    output * bg ~/Pictures/Wallpapers/1296328.jpg fill
-  '';
+  config = pkgs.substituteAll {
+      name = "sway-config";
+      src = ./config;
+      background = "/home/tgunnoe/src/configurations/conf.d/polyscape-background-15.png";
+      term = "${pkgs.termite}/bin/termite";
+  };
 in
 pkgs.symlinkJoin {
-  name = "nixway-app";
+  name = "sway";
   paths = [ pkgs.sway ];
-  buildInputs = [ pkgs.makeWrapper ];
+  buildInputs = with pkgs; [ makeWrapper ];
+  propagatedBuildInputs = with pkgs; [ hello ];
   postBuild = ''
     wrapProgram $out/bin/sway \
-    --config ${config}
+    --add-flags "--config ${config}"
   '';
+
+
   meta = with stdenv.lib; {
     homepage = "https://github.com/tgunnoe/nix-machines/";
     description = "Test nix+sway app";

@@ -1,4 +1,6 @@
 final: prev: {
+  arma3-unix-launcher = prev.callPackage ./games/arma3-unix-launcher { };
+  argparsepp = prev.callPackage ./development/libraries/argparse { };
   sddm-chili =
     prev.callPackage ./applications/display-managers/sddm/themes/chili { };
   dejavu_nerdfont = prev.callPackage ./data/fonts/dejavu-nerdfont { };

@@ -24,6 +24,8 @@
     tig
     tokei
     wget
+
+    tcpdump
   ];
 
   fonts = {

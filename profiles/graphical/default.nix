@@ -66,11 +66,13 @@ in
       gimp
       imagemagick
       imlib2
+      inkscape
       librsvg
       libsForQt5.qtstyleplugins
       manpages
       mupdf
       nomacs
+#      nyxt
       papirus-icon-theme
       pulsemixer
       pavucontrol
@@ -79,6 +81,7 @@ in
       stdmanpages
       transmission-gtk
       xsel
+      untrunc
       zathura
       pcmanfm
       vlc

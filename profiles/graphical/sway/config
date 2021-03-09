@@ -19,10 +19,10 @@ set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
 
 #output * bg @wall@ fill
 #output DP-3 scale 0.75
-output eDP-1 {
-    resolution 3200x1800
+output DP-2 {
+    resolution 3440x1440@144hz
     position 0,0
-    scale 1.8
+    scale 1
 }
 
 #########################################################################
@@ -30,6 +30,11 @@ output eDP-1 {
 ### Inputs ##############################################################
 #@inputs@
 input 1:1:AT_Translated_Set_2_keyboard {
+      xkb_layout us(dvorak)
+      xkb_variant ,nodeadkeys
+      xkb_options ctrl:nocaps
+}
+input 6127:24814:Lenovo_TrackPoint_Keyboard_II {
       xkb_layout us(dvorak)
       xkb_variant ,nodeadkeys
       xkb_options ctrl:nocaps
