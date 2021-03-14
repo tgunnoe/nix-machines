@@ -67,6 +67,7 @@ in
       imagemagick
       imlib2
       inkscape
+      libreoffice
       librsvg
       libsForQt5.qtstyleplugins
       manpages

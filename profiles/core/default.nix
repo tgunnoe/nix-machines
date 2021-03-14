@@ -38,6 +38,7 @@ in
       pwgen
       ripgrep
       sshfs
+      telnet
       toxic
       utillinux
       whois

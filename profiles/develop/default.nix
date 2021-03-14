@@ -1,4 +1,16 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+
+with pkgs;
+
+let
+  my-python-packages = python-packages: with python-packages; [
+    asyncio
+    i3ipc
+  ];
+  python-with-my-packages = python3.withPackages my-python-packages;
+in
+
+{
   imports = [ ./zsh ./tmux ];
 
   # environment.shellAliases = { emacs = "$EDITOR"; pass = "gopass"; };
@@ -13,14 +25,22 @@
 
   environment.systemPackages = with pkgs; [
     #clang
+    cmake
     file
+    gcc
     git-crypt
     gnupg
     less
     ncdu
+    nixpkgs-review
     gopass
     rubber
+
+    python-with-my-packages
+
     taskwarrior
+    vit
+
     tig
     tokei
     wget
