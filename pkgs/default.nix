@@ -5,6 +5,7 @@ final: prev: {
     prev.callPackage ./applications/display-managers/sddm/themes/chili { };
   dejavu_nerdfont = prev.callPackage ./data/fonts/dejavu-nerdfont { };
   faforever = prev.callPackage ./games/faforever { };
+  i3-swallow = prev.callPackage ./misc/i3-swallow { };
   lzwolf = prev.callPackage ./games/lzwolf { };
   nixway-app = prev.callPackage ./applications/nixway-app { };
   purs = prev.callPackage ./shells/zsh/purs { };
@@ -13,4 +14,5 @@ final: prev: {
   libinih = prev.callPackage ./development/libraries/libinih { };
   steamcompmgr =
     prev.callPackage ./applications/window-managers/steamcompmgr { };
+  wio = prev.callPackage ./applications/window-managers/wio { };
 }
