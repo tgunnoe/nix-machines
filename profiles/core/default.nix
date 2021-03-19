@@ -14,6 +14,7 @@ in
     systemPackages = with pkgs; [
       binutils
       bpytop
+      cool-retro-term
       coreutils
       cmatrix
       curl

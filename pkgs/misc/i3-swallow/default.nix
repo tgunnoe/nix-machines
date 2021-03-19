@@ -1,7 +1,6 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{ stdenv, lib, python3Packages, fetchFromGitHub }:
 
-
-python3Packages.buildPythonApplication rec {
+stdenv.mkDerivation rec {
   pname = "i3-swallow";
   version = "202010107";
 
@@ -13,6 +12,12 @@ python3Packages.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = [ python3Packages.i3ipc ];
+
+  #  postBuild
+  installPhase = ''
+    mkdir -p $out/bin
+    cp swallow.py $out/bin
+  '';
 
   # Tests require access to a X session
   doCheck = false;

@@ -4,10 +4,11 @@ with pkgs;
 
 let
   my-python-packages = python-packages: with python-packages; [
-    asyncio
     i3ipc
+    requests
+    pip
   ];
-  python-with-my-packages = python3.withPackages my-python-packages;
+  python-with-my-packages = python39.withPackages my-python-packages;
 in
 
 {
@@ -26,6 +27,9 @@ in
   environment.systemPackages = with pkgs; [
     #clang
     cmake
+    gnumake
+    docker
+
     file
     gcc
     git-crypt
@@ -34,7 +38,12 @@ in
     ncdu
     nixpkgs-review
     gopass
+
+    tetex
+    texlive.combined.scheme-tetex
+    (texlive.combine { inherit (texlive) scheme-medium xifthen ifmtarg framed paralist titlesec; })
     rubber
+    pandoc
 
     python-with-my-packages
 

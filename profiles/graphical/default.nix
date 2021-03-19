@@ -54,6 +54,7 @@ in
       adapta-gtk-theme
       cursor
       dzen2
+      cage
       chromium
       electrum
       feh

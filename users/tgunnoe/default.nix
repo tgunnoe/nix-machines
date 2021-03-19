@@ -30,7 +30,6 @@ in
   home-manager.users.tgunnoe = {
     imports = with pkgs; [
       ../profiles/git
-      #../profiles/alacritty
       ../profiles/kitty
       ../profiles/zsh
       ../profiles/direnv

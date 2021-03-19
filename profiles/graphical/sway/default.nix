@@ -67,7 +67,7 @@ in
         #xdg-desktop-portal-wlr # xdg-desktop-portal backend for wlroots
 
         qt5.qtwayland
-        alacritty
+        #alacritty
         kitty
         volnoti
         (waybar.override { pulseSupport = pulseaudio.enable; })
@@ -79,7 +79,7 @@ in
     "sway/config".text =
       let
         volnoti = import ../misc/volnoti.nix { inherit pkgs; };
-        background = "/home/tgunnoe/src/nix-machines/profiles/graphical/sway/polyscape-background-15.png";
+        background = "/home/tgunnoe/src/nix-machines/profiles/graphical/sway/592339-polyscape-forest.jpg";
       in
       ''
         set $volume ${volnoti}
