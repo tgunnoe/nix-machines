@@ -5,8 +5,13 @@ let
     {
       name = "sway-config";
       src = ./config;
-      background = "/home/tgunnoe/src/nix-machines/pkgs/applications/nixway-app/212797-abstract-polyscape.jpg";
-      term = "${pkgs.termite}/bin/termite";
+      background = "/home/tgunnoe/src/nix-machines/pkgs/applications/nixway-app/bg-basic.png";
+      term = "${pkgs.kitty}/bin/kitty";
+      termconfig = pkgs.writeText "kitty" ''
+        background_opacity 0.2
+        font_size 10.0
+        window_padding_width 20
+      '';
   };
   extra-container = let
     src = builtins.fetchGit {
@@ -34,13 +39,25 @@ let
             done
           ";
         };
-        networking.firewall.allowedTCPPorts = [ 50 ];
+        services.tor = {
+          enable = true;
+          client = {
+            enable = true;
+          };
+        };
+        networking.firewall.allowedTCPPorts = [ 50 9050 ];
       };
     };
   }
   '';
-  container-import = import container;
-  nixway-container = (container-import pkgs);
+
+  custom-python-pkgs = python-packages: with python-packages; [
+    i3ipc
+  ];
+  python-pkgs = pkgs.python38.withPackages custom-python-pkgs;
+
+  #layout = pkgs.writeText "layout" '' ${builtins.readFile ./ws-1.py} '';
+  layout = (builtins.readFile ./ws-1.py);
 in
 pkgs.symlinkJoin {
   name = "nixway-app";
@@ -54,8 +71,10 @@ pkgs.symlinkJoin {
     --prefix PATH : "${extra-container}/bin" \
     --prefix PATH : "${pkgs.cmatrix}/bin" \
     --prefix PATH : "${pkgs.bpytop}/bin" \
+    --prefix PATH : "${python-pkgs}"/bin \
     --run "${extra-container}/bin/extra-container create --nixpkgs-path /home/tgunnoe/src/nixpkgs --start ${container}"
   '';
+  # --run "${pkgs.python}/bin/python ${layout}"
 #    --run "nixos-container create foo --nixos-path /home/tgunnoe/src/nixpkgs/nixos --config 'services.openssh.enable = true;'"
   #    --run "nixos-container start foo" \
 
