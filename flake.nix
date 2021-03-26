@@ -11,6 +11,7 @@
       home.url = "github:nix-community/home-manager/release-20.09";
       flake-utils.url = "github:numtide/flake-utils/flatten-tree-system";
       devshell.url = "github:numtide/devshell";
+      emacs.url = "github:nix-community/emacs-overlay";
       nixos-hardware.url = "github:nixos/nixos-hardware";
       ci-agent.url = "github:hercules-ci/hercules-ci-agent";
       # nixus = { url = "github:infinisil/nixus"; flake = false; };
@@ -25,6 +26,7 @@
     , flake-utils
     , nur
     , devshell
+    , emacs
     , nixos-hardware
     }:
     let
@@ -34,7 +36,7 @@
       inherit (self.lib) overlays nixosModules genPackages pkgImport
         genHomeActivationPackages;
 
-      externOverlays = [ nur.overlay devshell.overlay ];
+      externOverlays = [ nur.overlay devshell.overlay emacs.overlay ];
       externModules = [
         home.nixosModules.home-manager
         ci-agent.nixosModules.agent-profile

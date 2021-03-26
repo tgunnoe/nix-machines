@@ -7,7 +7,7 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs;
+    package = pkgs.emacsPgtkGcc;
     init = {
       enable = true;
       recommendedGcSettings = true;
@@ -380,7 +380,9 @@
           enable = true;
           mode = [ ''"\\.elm\\'"'' ];
         };
-
+        epresent = {
+          enable = true;
+        };
         etags = {
           enable = true;
           defer = true;
