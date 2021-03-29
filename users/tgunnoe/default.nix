@@ -13,6 +13,7 @@ in
     ../../profiles/ssh
     ../../profiles/graphical/games
     ../../profiles/network
+    ../../profiles/virt
     ./vpn.nix
   ];
 

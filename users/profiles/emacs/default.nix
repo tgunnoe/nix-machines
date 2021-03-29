@@ -42,8 +42,8 @@
                                           (abbreviate-file-name (buffer-file-name))
                                         "%b"))))
       ;; transparency
-      (set-frame-parameter (selected-frame) 'alpha '(80 . 50))
-      (add-to-list 'default-frame-alist '(alpha . (80 . 50)))
+      (set-frame-parameter (selected-frame) 'alpha '(90 . 80))
+      (add-to-list 'default-frame-alist '(alpha . (90 . 80)))
 
       ;; Accept 'y' and 'n' rather than 'yes' and 'no'.
       (defalias 'yes-or-no-p 'y-or-n-p)
@@ -100,7 +100,7 @@
       (setq mouse-yank-at-point t)
 
       ;; Turn on mouse
-      ;;(xterm-mouse-mode t)
+      (xterm-mouse-mode t)
 
       ;; Enable a few useful commands that are initially disabled.
       (put 'upcase-region 'disabled nil)
@@ -328,18 +328,15 @@
                doom-themes-enable-italic t) ; if nil, italics is universally disabled
              (load-theme 'doom-one t)
 
-             ;; Enable flashing mode-line on errors
-             (doom-themes-visual-bell-config)
-
              ;; Enable custom neotree theme (all-the-icons must be installed!)
-             (doom-themes-neotree-config)
+             ;;(doom-themes-neotree-config)
 
              ;; or for treemacs users
-             (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-             (doom-themes-treemacs-config)
+             ;; (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+             ;;(doom-themes-treemacs-config)
 
              ;; Corrects (and improves) org-mode's native fontification.
-             (doom-themes-org-config)
+             ;; (doom-themes-org-config)
       '';
         };
         drag-stuff = {
@@ -590,9 +587,6 @@
           config = ''
         (global-hungry-delete-mode t)
       '';
-        };
-        matrix-client = {
-          enable = true;
         };
         nyan-mode = {
           enable = true;
@@ -1177,7 +1171,8 @@
           enable = true;
           command = [ "org-tree-slide-mode" ];
         };
-
+#        presentation-mode = {
+#          enable = true;
         # Set up yasnippet. Defer it for a while since I don't generally
         # need it immediately.
         yasnippet = {
