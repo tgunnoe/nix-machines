@@ -1,22 +1,31 @@
 let
-  inherit (default.inputs.nixos.lib) recurseIntoAttrs;
+  inherit (default.inputs.nixos) lib;
 
-  default = (import ../compat).defaultNix;
+  default = (import "${../.}/compat").defaultNix;
 
-  packages = import ../default.nix;
+  ciSystems = [
+    "aarch64-linux"
+    "i686-linux"
+    "x86_64-linux"
+  ];
 
-  shell = recurseIntoAttrs default.devShell.x86_64-linux;
+  filterSystems = lib.filterAttrs
+    (system: _: lib.elem system ciSystems);
 
-  # failing on hercules-ci, probably until nix is updated
-  # ci = recurseIntoAttrs
-  #   default.nixosConfigurations.ci.config.system.build.toplevel;
+  recurseIntoAttrsRecursive = lib.mapAttrs (_: v:
+    if lib.isAttrs v
+    then recurseIntoAttrsRecursive (lib.recurseIntoAttrs v)
+    else v
+  );
+
+  systemOutputs = lib.filterAttrs
+    (name: set: lib.isAttrs set
+      && lib.any
+      (system: set ? ${system} && name != "legacyPackages")
+      ciSystems
+    )
+    default.outputs;
+
+  ciDrvs = lib.mapAttrs (_: system: filterSystems system) systemOutputs;
 in
-{
-  inherit shell;
-  # platforms supported by our hercules-ci agent
-  inherit (packages)
-    i686-linux
-    x86_64-linux
-    aarch64-linux
-    ;
-}
+recurseIntoAttrsRecursive ciDrvs

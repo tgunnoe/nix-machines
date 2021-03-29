@@ -1,235 +1,83 @@
-> Since flakes are still quite new, I've listed some learning resources
-> [below](#resources).
+[![Bors enabled](https://bors.tech/images/badge_small.svg)](https://app.bors.tech/repositories/32678)
+[![MIT License](https://img.shields.io/github/license/divnix/devos)][mit]
+[![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg?style=flat&logo=NixOS&logoColor=white)](https://nixos.org)
+
+> #### ⚠ Advisory ⚠
+> DevOS requires the [flakes][flakes] feature available via an _experimental_
+> branch of [nix][nix]. Until nix 3.0 is released, this project
+> should be considered unstable, though quite usable as flakes have been
+> maturing _well_ [for a while](https://github.com/divnix/devos/tree/17713c22d07c54525c728c62060a0428b76dee3b).
 
 # Introduction
-Herein lies a [NixOS][NixOS] configuration template using the new [flakes][wiki]
-mechanism. Its aim is to provide a generic repository which neatly separates
-concerns and allows one to get up and running with NixOS faster than ever, while
-keeping your code clean and organized.
+DevOS grants a simple way to use, deploy and manage [NixOS][nixos] systems for
+personal and productive use. A sane repository structure is provided,
+integrating several popular projects like [home-manager][home-manager],
+[devshell][devshell], and [more](./doc/integrations).
 
-Some key advantages include:
-* A single home for all your Nix expressions, easily sharable and portable!
-* Skip the boilerplate, simply use the included [nix-shell](./shell.nix) or
-  [direnv][direnv] profile and get up and running with flakes right away.
-* Thanks to flakes, the entire system is more [deterministic](./flake.lock).
-* Systems defined under [hosts](./hosts) are automatically imported into
-  `nixosConfigurations`, ready to deploy.
-* [Profiles](./profiles/list.nix) are a simple mechanism for using portable
-  code across machines, and are available to share via the
-  `nixosModules.profiles` output.
-* Defined [packages](./pkgs/default.nix) and
-  [modules](./modules/list.nix), are automatically wired and available from
-  anywhere. They are _also_ sharable via their respective flake outputs.
-* Easily [override](./pkgs/override.nix) packages from different nixpkgs versions.
-* Keep [user](./users) configuration isolated and easily reusable by taking
-  advantage of [user profiles](./users/profiles) and [home-manager][home-manager].
-* [Overlay](./overlays) files are automatically available and sharable.
-* Automatic [NUR][nur] support.
+Striving for ___nix first™___ solutions with unobstrusive implementations,
+a [flake centric][flake-doc] approach is taken for useful conveniences such as
+[automatic source updates](./pkgs#automatic-source-updates).
 
-For a more detailed explanation of the code structure, check out the
-[docs](./DOC.md).
+Skip the indeterminate nature of other systems, _and_ the perceived
+tedium of bootstrapping Nix. It's easier than you think!
 
-### ⚠ Advisory
-Flakes are still new, so not everything works yet. However, it has been to
-merged in [nixpkgs][nixpkgs] via [`pkgs.nixFlakes`][nixFlakes]. Thus, this
-project should be considered _experimental_, until flakes become the default.
+### Status: Alpha
+A lot of the implementation is less than perfect, and huge
+[redesigns](https://github.com/divnix/devos/issues/152) _will_ happen. There
+are unstable versions (0._x_._x_) to help users keep track of changes and
+progress.
 
-Also, flakes are meant to deprecate nix-channels. It's recommended not to
-install any. If your really want them, they should work if you hook them into
-`NIX_PATH`.
+## Getting Started
+Check out the [guide](https://devos.divnix.com/doc/start) to get up and running.
 
-# Sharing
-One of the great benefits of flakes is the ability to easily share your user
-defined packages, modules and other nix expressions without having to merge
-anything upstream. In that spirit, everything defined in this flake is usable
-from other flakes. So even if you don't want to use this project as a template,
-you can still pull in any useful modules, packages or profiles defined here.
+## In the Wild
+The author maintains his own branch, so you can take inspiration, direction, or
+make critical comments about the [code][please]. 😜
 
-From the command line:
-```sh
-# to see what this flake exports
-nix flake show "github:nrdxp/nixflk"
+## Motivation
+NixOS provides an amazing abstraction to manage our environment, but that new
+power can sometimes bring feelings of overwhelm and confusion. Having a turing
+complete system can easily lead to unlimited complexity if we do it wrong.
+Instead, we should have a community consensus on how to manage a NixOS system
+and its satellite projects, from which best practices can evolve.
 
-# run an app
-nix run "github:nrdxp/nixflk#someApp"
+___The future is declarative! 🎉___
 
-# start a dev shell for a given derivation
-nix develop "github:nrdxp/nixflk#somePackage"
+## Upstream
+I'd love to see this in the nix-community should anyone believe its reached a
+point of maturity to be generally useful, but I'm all for waiting until
+1.0[#121](https://github.com/divnix/devos/issues/121) to save the cache work,
+too.
 
-# a nix shell with the package in scope
-nix shell "github:nrdxp/nixflk#somePackage"
-```
+## Community Profiles
+There are two branches from which to choose: [core][core] and
+[community][community]. The community branch builds on core and includes
+several ready-made profiles for discretionary use.
 
-From within a flake:
-```nix
-{
-  inputs.nixflk.url = "github:nrdxp/nixflk";
+Every package and NixOS profile declared in community is uploaded to
+[cachix](./cachix), so everything provided is available without building
+anything. This is especially useful for the packages that are
+[overridden](./overrides) from master, as without the cache, rebuilds are
+quite frequent.
 
-  outputs = { self, nixpkgs, nixflk, ... }:
-  {
-    nixosConfigurations.example = nixpkgs.lib.nixosSystem {
-      # ...
-        modules = [
-        nixflk.nixosModules.someModule
-        ({
-          nixpkgs.overlays = [ nixflk.overlay nixflk.overlays.someOverlay ];
-        })
-        # ...
-      ];
-    };
-  };
-}
-```
-
-# Setup
-There are a few ways to get up and running. You can fork this repo or use it as
-a template. There is a [bare branch][bare] if you want to start with a
-completely empty template and make your own profiles from scratch. The only
-hard requirement is nix itself. The `shell.nix` will pull in everything else.
-
-## Flake Templates
-If you already have [nix-command][nix-command] setup you can:
-```sh
-# for standard template
-nix flake new -t "github:nrdxp/nixflk" flk
-
-# for bare template
-nix flake new -t "github:nrdxp/nixflk/bare" flk
-```
-
-## Nix Only
-Once you have this repo, you'll want to __move or symlink__ it to `/etc/nixos`
-for ease of use. Once inside:
-```sh
-# This will setup nix-command and pull in the needed tools
-nix-shell # or `direnv allow` if you prefer
-
-# use nixos-generate-config to generate a basic config for your system
-# edit hosts/up-$(hostname).nix to modify.
-flk up
-
-# The following should work fine for EFI systems.
-# boot.loader.systemd-boot.enable = true;
-# boot.loader.efi.canTouchEfiVariables = true;
-
-# Set your locale
-$EDITOR local/locale.nix
-
-# install NixOS to bare metal
-flk install yourConfig # deploys hosts/yourConfig.nix
-
-# if you already have NixOS and just want to deploy your new setup
-flk yourConfig switch
-```
-
-### Note on `flk up`:
-While the `up` sub-command is provided as a convenience to quickly set up and
-install a "fresh" NixOS system on current hardware, committing these files is
-discouraged.
-
-They are placed in the git staging area automatically because they would be
-invisible to the flake otherwise, but it is best to move what you need from
-them directly into your hosts file and commit that instead.
-
-## Home Manager Integration
-The home-manager nixos module is available for each host. It is meant
-to be used in the user profiles, you can find an example in the nixos user profile
-
-The home-manager configuration for each user in each system is available in the
-outputs as homeConfigurations and the activation packages in hmActivationPackages.
-
-This allows you to just build the home-manager environment without the rest of the
-system configuration. The feature is useful on systems without nixos or root access.
-
-Lets say you want to activate the home configuration for the user `nixos` in the 
-host `NixOS`.
-
-With the flk script:
-```sh
-# You can build it using
-flk home NixOS nixos
-# and activate with
-./result/activate
-
-# Or do both like this
-flk home NixOS nixos switch
-```
-
-This can also be done manually:
-```sh
-
-# With hmActivationPackages, what the flk script uses
-nix build ./#hmActivationPackages.NixOS.nixos
-
-# Or with homeConfigurations, 
-nix build ./#homeConfigurations.NixOS.nixos.home.activationPackage
-# this is hard to debug though, due to nix build's fallback to packages
-
-# The configuration can then be activated like before
-```
-
-## Build an ISO
-
-You can make an ISO and customize it by modifying the [niximg](./hosts/niximg.nix)
-file:
-```sh
-flk iso
-```
-
-## Hardware Specific Profile for a Single Host
-
-Find out the fitting [nixos-hardware profile](https://github.com/NixOS/nixos-hardware#list-of-profiles) for the hardware of your host, then find the corresponding modules in the [flake](https://github.com/NixOS/nixos-hardware/blob/master/flake.nix) and add it to the configuration.
-For example for a Dell XPS 13 9370 the host configuration would contain:
-```nix
-{
-  imports = [ hardware.dell-xps-13-9370 ... ];
-  ...
-}
-```
-
-## Use a Package from NUR
-
-NUR is wired in from the start. For safety, nothing is added from it by default,
-but you can easily pull packages from inside your configuration like so:
-```nix
-{ pkgs, ... }:
-{
-  environment.systemPackages = with pkgs; [ nur.repos.<owner>.<package> ];
-}
-```
-# Resources
-
-## Links
-* [Example Repo](https://github.com/colemickens/nixos-flake-example)
-* [Tweag.io _Flakes_ Blog Series](https://www.tweag.io/blog/2020-05-25-flakes)
-* [NixOS _Flakes_ Wiki](https://nixos.wiki/wiki/Flakes)
-* [Zimbatm's _Flakes_ Blog](https://zimbatm.com/NixFlakes)
-* [Original RFC](https://github.com/tweag/rfcs/blob/flakes/rfcs/0049-flakes.md)
-
-## Flake Talk:
-[![Flake talk at NixConf][thumb]][video]
-
+## Inspiration & Art
+- [hlissner/dotfiles][dotfiles]
+- [nix-user-chroot](https://github.com/nix-community/nix-user-chroot)
+- [Nickel](https://github.com/tweag/nickel)
+- [Awesome Nix](https://github.com/nix-community/awesome-nix)
+- [devshell](https://github.com/numtide/devshell)
 
 # License
+DevOS is licensed under the [MIT License][mit].
 
-This software is licensed under the [MIT License](COPYING).
-
-Note: MIT license does not apply to the packages built by this configuration,
-merely to the files in this repository (the Nix expressions, build
-scripts, NixOS modules, etc.). It also might not apply to patches
-included here, which may be derivative works of the packages to
-which they apply. The aforementioned artifacts are all covered by the
-licenses of the respective packages.
-
-[bare]: https://github.com/nrdxp/nixflk/tree/bare
-[direnv]: https://direnv.net
-[home-manager]: https://github.com/nix-community/home-manager
-[nix-command]: https://nixos.wiki/wiki/Nix_command
-[nixFlakes]: https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/package-management/nix/default.nix#L211
-[NixOS]: https://nixos.org
-[nixpkgs]: https://github.com/NixOS/nixpkgs
-[nur]: https://github.com/nix-community/NUR
-[wiki]: https://nixos.wiki/wiki/Flakes
-[thumb]: https://img.youtube.com/vi/UeBX7Ide5a0/hqdefault.jpg
-[video]: https://www.youtube.com/watch?v=UeBX7Ide5a0
-[nur]: https://github.com/nix-community/NUR
+[nix]: https://nixos.org/manual/nix/stable
+[mit]: https://mit-license.org
+[nixos]: https://nixos.org/manual/nixos/stable
+[home-manager]: https://nix-community.github.io/home-manager
+[flakes]: https://nixos.wiki/wiki/Flakes
+[flake-doc]: https://github.com/NixOS/nix/blob/master/src/nix/flake.md
+[core]: https://github.com/divnix/devos
+[community]: https://github.com/divnix/devos/tree/community
+[dotfiles]: https://github.com/hlissner/dotfiles
+[devshell]: https://github.com/numtide/devshell
+[please]: https://github.com/nrdxp/devos/tree/nrd

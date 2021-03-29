@@ -1,13 +1,10 @@
 { config, lib, pkgs, ... }:
 let inherit (lib) fileContents;
-
 in
 {
   nix.package = pkgs.nixFlakes;
 
   nix.systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-
-  imports = [ ../../local/locale.nix ];
 
   environment = {
 
@@ -18,6 +15,7 @@ in
       coreutils
       cmatrix
       curl
+      deploy-rs
       direnv
       dnsutils
       dosfstools
@@ -32,8 +30,8 @@ in
       manix
       ncurses
       neofetch
-      nix-index
       moreutils
+      nix-index
       nmap
       openssl
       pwgen
@@ -41,6 +39,8 @@ in
       sshfs
       telnet
       toxic
+      skim
+      tealdeer
       utillinux
       whois
     ];
@@ -79,8 +79,9 @@ in
         nr = "np remove";
         ns = "n search --no-update-lock-file";
         nf = "n flake";
-        nepl = "n repl '<nixos>'";
-        srch = "ns nixpkgs";
+        nepl = "n repl '<nixpkgs>'";
+        srch = "ns nixos";
+        orch = "ns override";
         nrb = ifSudo "sudo nixos-rebuild";
         mn = ''
           manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | sk --preview="manix '{}'" | xargs manix
@@ -108,7 +109,6 @@ in
         jtl = "journalctl";
 
       };
-
   };
 
   fonts = {
@@ -138,10 +138,10 @@ in
     trustedUsers = [ "root" "@wheel" ];
 
     extraOptions = ''
-      experimental-features = nix-command flakes ca-references
       min-free = 536870912
       keep-outputs = true
       keep-derivations = true
+      fallback = true
     '';
 
   };
@@ -153,14 +153,6 @@ in
     interactiveShellInit = ''
       eval "$(${pkgs.direnv}/bin/direnv hook bash)"
     '';
-  };
-
-  security = {
-
-    hideProcessInformation = true;
-
-    protectKernelImage = true;
-
   };
 
   services.earlyoom.enable = true;
