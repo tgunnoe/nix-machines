@@ -10,25 +10,31 @@ layout = {
     "layout": "splith",
     "nodes": [
         {
-            "layout": "stacking",
-            "width": 67,
+            "layout": "splitv",
+            "width": 47,
             "nodes": [
                 {
-                    "swallows": {"app_id": r"^firefox"}
+                    "swallows": {
+                        "app_id": r"^kitty$",
+                        "name": r"^BpyTOP$"
+                    }
+                },
+                {
+                    "swallows": {
+                        "app_id": r"^kitty$",
+                        "name": r"^cmatrix$"
+                    }
                 }
             ]
         },
         {
             "layout": "splitv",
-            "width": 33,
+            "width": 53,
             "nodes": [
                 {
-                    "swallows": {"app_id": r"^kitty"}
-                },
-                {
                     "swallows": {
-                        "app_id": r"^kitty",
-                        "name": r"^emacsclient"
+                        "app_id": r"^kitty$",
+                        "name": r"^ranger$"
                     }
                 },
             ]

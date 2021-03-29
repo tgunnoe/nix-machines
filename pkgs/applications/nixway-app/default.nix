@@ -6,13 +6,26 @@ let
       name = "sway-config";
       src = ./config;
       background = "/home/tgunnoe/src/nix-machines/pkgs/applications/nixway-app/bg-basic.png";
+      script = "/home/tgunnoe/src/nix-machines/pkgs/applications/nixway-app/startup.zsh";
       term = "${pkgs.kitty}/bin/kitty";
+      conky-config = let
+        conky-config = pkgs.substituteAll
+          {
+            name = "conky-config.conf";
+            src = ./conky.conf;
+            color1 = "A9A9A9";
+            color3 = "616161";
+          };
+      in
+        conky-config;
       termconfig = pkgs.writeText "kitty" ''
-        background_opacity 0.2
-        font_size 10.0
+        background_opacity 0
+        font_size 8.0
         window_padding_width 20
+
       '';
   };
+
   extra-container = let
     src = builtins.fetchGit {
       url = "https://github.com/erikarvstedt/extra-container.git";
@@ -56,12 +69,17 @@ let
   ];
   python-pkgs = pkgs.python38.withPackages custom-python-pkgs;
 
+
   #layout = pkgs.writeText "layout" '' ${builtins.readFile ./ws-1.py} '';
-  layout = (builtins.readFile ./ws-1.py);
+  #layout = builtins.readFile ./ws-1.py;
+  layout = builtins.path {
+    path = ./ws-1.py;
+    name = "ws-1.py";
+  };
 in
 pkgs.symlinkJoin {
   name = "nixway-app";
-  paths = with pkgs; [ sway waybar hello cmatrix bpytop ];
+  paths = with pkgs; [ sway waybar hello ranger bpytop conky ];
   buildInputs = with pkgs; [ makeWrapper nixos-container ];
   postBuild = ''
     mv $out/bin/sway $out/bin/nixway-app
@@ -69,12 +87,14 @@ pkgs.symlinkJoin {
     --add-flags "--config ${config}" \
     --prefix PATH : "${pkgs.hello}/bin" \
     --prefix PATH : "${extra-container}/bin" \
-    --prefix PATH : "${pkgs.cmatrix}/bin" \
+    --prefix PATH : "${pkgs.ranger}/bin" \
     --prefix PATH : "${pkgs.bpytop}/bin" \
+    --prefix PATH : "${pkgs.conky}/bin" \
     --prefix PATH : "${python-pkgs}"/bin \
-    --run "${extra-container}/bin/extra-container create --nixpkgs-path /home/tgunnoe/src/nixpkgs --start ${container}"
+    --run "${extra-container}/bin/extra-container create --nixpkgs-path /home/tgunnoe/src/nixpkgs --start ${container}" \
+
   '';
-  # --run "${pkgs.python}/bin/python ${layout}"
+  #     --run "${python-pkgs}/bin/python ${layout}"
 #    --run "nixos-container create foo --nixos-path /home/tgunnoe/src/nixpkgs/nixos --config 'services.openssh.enable = true;'"
   #    --run "nixos-container start foo" \
 
