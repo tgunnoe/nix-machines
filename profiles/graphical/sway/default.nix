@@ -65,11 +65,13 @@ in
 
         # TODO: more steps required to use this?
         #xdg-desktop-portal-wlr # xdg-desktop-portal backend for wlroots
-
+        dmenu-wayland
+        fuzzel
         qt5.qtwayland
         #alacritty
         kitty
         volnoti
+
         (waybar.override { pulseSupport = pulseaudio.enable; })
 
       ];
@@ -79,7 +81,7 @@ in
     "sway/config".text =
       let
         volnoti = import ../misc/volnoti.nix { inherit pkgs; };
-        background = "/home/tgunnoe/src/nix-machines/profiles/graphical/sway/592339-polyscape-forest.jpg";
+        background = "/home/tgunnoe/src/nix-machines/profiles/graphical/sway/85524-triangle-polyscape-mountain-lake-reflection.jpg";
       in
       ''
         set $volume ${volnoti}

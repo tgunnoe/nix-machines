@@ -9,7 +9,7 @@
 window#waybar {
     background-color: rgba(43, 48, 59, 0);
     border-bottom: 3px solid rgba(100, 114, 125, 0);
-    color: #ffffff;
+    color: #000000;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -81,27 +81,28 @@ window#waybar.chromium {
 #mode,
 #idle_inhibitor {
     padding: 0 10px;
-    color: #ffffff;
+    color: #000000;
 }
 #cpu,
 #temperature {
     background-color: #111111;
+    color: #ffffff
 }
 #custom-quit {
     padding: 5px;
     font-size: 1.3em;
 }
 #pulseaudio {
-    background-color: #91ddff;
+    background-color: #7f9ba0;
     color: #111111;
 }
 #pulseaudio.muted {
     /*    background-color: #90b1b1;*/
-    background-color: #91ddff;
+    background-color: #7f9ba0;
     color: #2a5c45;
 }
 #memory {
-    background-color: #91ddff;
+    background-color: #7f9ba0;
     color: #111111;
 }
 #network {
@@ -128,11 +129,11 @@ window#waybar.chromium {
     padding: 0 10px;
     margin:0;
     background-color: transparent;
-    color: #ffffff;
+    color: #000000;
 }
 #workspaces{
     padding: 0 1em;
-    background-color: #91ddff;
+    background-color: #7f9ba0;
     color: #000000;
 }
 #custom-dulP,
@@ -143,7 +144,7 @@ window#waybar.chromium {
 #custom-dulT,
 #custom-durT,
 #custom-ddlT {
-    color: #91ddff;
+    color: #7f9ba0;
 }
 #custom-dulS,
 #custom-durS,

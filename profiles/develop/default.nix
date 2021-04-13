@@ -8,7 +8,7 @@ let
     requests
     pip
   ];
-  python-with-my-packages = python39.withPackages my-python-packages;
+  python-with-my-packages = python38.withPackages my-python-packages;
 in
 
 {
@@ -38,7 +38,7 @@ in
     ncdu
     nixpkgs-review
     gopass
-
+    guake
     tetex
     texlive.combined.scheme-tetex
     (texlive.combine { inherit (texlive) scheme-medium xifthen ifmtarg framed paralist titlesec; })
